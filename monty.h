@@ -6,7 +6,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#define DELIMS " \n\t"
+#define DELIMS " \n\t\a\b"
 #define BUFSIZE 1024
 #define USAGE "monty file\n"
 

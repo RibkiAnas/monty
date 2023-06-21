@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	{
 		line_number++;
 		opcode = strtok(line, DELIMS);
-		if (opcode == NULL || *opcode == '#')
+		if (!opcode || *opcode == '#')
 			continue;
 		for (i = 0; opcodes[i].opcode; i++)
 			if (strcmp(opcode, opcodes[i].opcode) == 0)
