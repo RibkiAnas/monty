@@ -39,7 +39,12 @@ int main(int argc, char **argv)
 		if (opcodes[i].opcode)
 			opcodes[i].f(&stack, line_number);
 		else
+		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+			free_stack(&stack);
+			fclose(fp);
+			return (EXIT_FAILURE);
+		}
 	}
 	free_stack(&stack);
 	fclose(fp);
