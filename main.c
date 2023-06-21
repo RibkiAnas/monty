@@ -1,5 +1,4 @@
 #include "monty.h"
-#include <stdio.h>
 
 /**
  * main - entry point for monty
@@ -19,15 +18,10 @@ int main(int argc, char **argv)
 	};
 	int i;
 
-	if (argc != 2)
-	{
-		fprintf(stderr, USAGE);
-		return (EXIT_FAILURE);
-	}
 	fp = fopen(argv[1], "r");
-	if (!fp)
+	if (argc != 2 || !fp)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, argc != 2 ? USAGE : "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
 	while (fgets(line, BUFSIZE, fp))
