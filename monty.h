@@ -8,6 +8,7 @@
 
 #define DELIMS " \n\t"
 #define BUFSIZE 1024
+#define USAGE "monty file\n"
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -45,5 +46,6 @@ void add_node(stack_t **stack, int n);
 int is_number(char *str);
 void free_stack(stack_t **stack);
 void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
 
 #endif

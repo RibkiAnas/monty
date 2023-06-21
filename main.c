@@ -13,12 +13,15 @@ int main(int argc, char **argv)
 	char line[BUFSIZE], *opcode;
 	unsigned int line_number = 0;
 	stack_t *stack = NULL;
-	instruction_t opcodes[] = {{"push", push}, {"pall", pall}, {"pint", pint}, {NULL, NULL}};
+	instruction_t opcodes[] = {
+		{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop}, {NULL, NULL}
+	};
 	int i;
 
-	if (argc != 2 || !(fp = fopen(argv[1], "r")))
+	fp = fopen(argv[1], "r");
+	if (argc != 2 || !fp)
 	{
-		fprintf(stderr, argc != 2 ? "USAGE: monty file\n" : "Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, argc != 2 ? USAGE : "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
 	while (fgets(line, BUFSIZE, fp))
