@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	stack_t *stack = NULL;
 	instruction_t opcodes[] = {
 		{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop},
-		{"swap", swap}, {"add", add}, {NULL, NULL}
+		{"swap", swap}, {"add", add}, {"nop", nop}, {NULL, NULL}
 	};
 	int i;
 
