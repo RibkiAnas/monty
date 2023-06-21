@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 	fp = fopen(argv[1], "r");
 	if (argc != 2 || !fp)
 	{
-		fprintf(stderr, argc != 2 ? USAGE : "Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, argc != 2 ? "USAGE: monty file\n" : "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
 	while (fgets(line, BUFSIZE, fp))
@@ -38,9 +38,6 @@ int main(int argc, char **argv)
 		else
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-			free_stack(&stack);
-			fclose(fp);
-			return (EXIT_FAILURE);
 		}
 	}
 	free_stack(&stack);
