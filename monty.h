@@ -44,6 +44,7 @@ void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void add_node(stack_t **stack, int n);
 int is_number(char *str);
+void process_file(FILE *fp, instruction_t *opcodes, stack_t **stack);
 void free_stack(stack_t **stack);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);

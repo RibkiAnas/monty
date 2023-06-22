@@ -9,21 +9,39 @@
 int main(int argc, char **argv)
 {
 	FILE *fp;
-	char line[BUFSIZE], *opcode;
-	unsigned int line_number = 0;
 	stack_t *stack = NULL;
 	instruction_t opcodes[] = {
 		{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop},
 		{"swap", swap}, {"add", add}, {"nop", nop}, {NULL, NULL}
 	};
-	int i;
 
 	fp = fopen(argv[1], "r");
-	if (argc != 2 || !fp)
+	if (argc != 2 || !fp || fseek(fp, 0, SEEK_END) || ftell(fp) == 0)
 	{
 		fprintf(stderr, argc != 2 ? USAGE : "Error: Can't open file %s\n", argv[1]);
+		if (fp)
+			fclose(fp);
 		return (EXIT_FAILURE);
 	}
+	rewind(fp);
+	process_file(fp, opcodes, &stack);
+	free_stack(&stack);
+	fclose(fp);
+	return (EXIT_SUCCESS);
+}
+
+/**
+ * process_file - processes a Monty bytecode file line by line
+ * @fp: file pointer to the Monty bytecode file
+ * @opcodes: array of opcodes and their corresponding functions
+ * @stack: double pointer to the top of the stack
+ */
+void process_file(FILE *fp, instruction_t *opcodes, stack_t **stack)
+{
+	char line[BUFSIZE], *opcode;
+	unsigned int line_number = 0;
+	int i;
+
 	while (fgets(line, BUFSIZE, fp))
 	{
 		line_number++;
@@ -34,18 +52,15 @@ int main(int argc, char **argv)
 			if (strcmp(opcode, opcodes[i].opcode) == 0)
 				break;
 		if (opcodes[i].opcode)
-			opcodes[i].f(&stack, line_number);
+			opcodes[i].f(stack, line_number);
 		else
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-			free_stack(&stack);
+			free_stack(stack);
 			fclose(fp);
-			return (EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 	}
-	free_stack(&stack);
-	fclose(fp);
-	return (EXIT_SUCCESS);
 }
 
 /**
