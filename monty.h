@@ -8,7 +8,7 @@
 
 #define DELIMS " \n\t\a\b"
 #define BUFSIZE 1024
-#define USAGE "monty file\n"
+#define USAGE " monty file\n"
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
